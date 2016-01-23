@@ -39,6 +39,9 @@ main = do
     , ((controlMask, xK_Print),  spawn "sleep 0.2; scrot -s")
     , ((0, xK_Print),            spawn "scrot")
     , ((controlMask, xK_Return), spawn "dmenu_run")
+    , ((0, xK_F1),               spawn "amixer set Master toggle")
+    , ((0, xK_F5),               spawn "xbacklight -dec 10")
+    , ((0, xK_F6),               spawn "xbacklight -inc 10")
     ]
 
 evHook :: Event -> X All
