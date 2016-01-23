@@ -1,0 +1,17 @@
+Config { font = "xft:Nanum Gothic Coding:size=10:antialias=true"
+       , borderColor = "#181818"
+       , border = TopB
+       , bgColor = "#181818"
+       , fgColor = "#b8b8b8"
+       , position = TopW L 100
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#a1b56c","--high","#ab4642"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "%a %_d %b %l:%M %p" "date" 10
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% | %cpu% | %memory% }{<fc=#dc9656>%date%</fc> "
+       }
