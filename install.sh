@@ -10,11 +10,11 @@ function backup {
 if command -v xmonad 2>/dev/null; then
     backup ".xmonad"
     backup ".xmobarrc"
-    backup ".stalonearryrc"
+    backup ".stalonetrayrc"
     git clone git@github.com:cbpark/dotXmonad.git $HOME/.xmonad
     command -v xmobar >/dev/null 2>&1 || { echo "You have to install xmobar." >&2; exit 1;}
-    ln -sf $HOME/.xmonad/.xmobarrc $HOME/.xmobarrc
-    ln -sf $HOME/.xmonad/.stalonetrayrc $HOME/.stalonetrayrc
+    ln -sf $HOME/.xmonad/xmobarrc $HOME/.xmobarrc
+    ln -sf $HOME/.xmonad/stalonetrayrc $HOME/.stalonetrayrc
     xmonad --recompile
 else
     echo "-- xmonad is not found."
