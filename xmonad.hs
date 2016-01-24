@@ -30,7 +30,7 @@ main = do
       , ppCurrent = xmobarColor "#f7ca88" "" . wrap "[" "]" }
     , terminal = "urxvt"
     , modMask = mod4Mask
-    , borderWidth        = 8
+    , borderWidth        = 4
     , normalBorderColor  = "#181818"
     , focusedBorderColor = "#a1b56c"
     } `additionalKeys`
