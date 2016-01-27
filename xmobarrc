@@ -1,4 +1,4 @@
-Config { font = "xft:Nanum Gothic Coding:size=10:antialias=true"
+Config { font = "xft:D2Coding:size=10:antialias=true"
        , borderColor = "#181818"
        , border = TopB
        , bgColor = "#181818"
