@@ -37,6 +37,7 @@ main = do
       }
     , terminal = "urxvt"
     , modMask = mod4Mask
+    , focusFollowsMouse = False
     , borderWidth        = 4
     , normalBorderColor  = "#181818"
     , focusedBorderColor = "#7cafc2"  -- "#a1b56c"
