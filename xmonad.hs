@@ -27,7 +27,7 @@ main = do
     , layoutHook = avoidStruts . smartBorders . smartSpacing 4 $ layoutHook def
     , logHook = dynamicLogWithPP xmobarPP
       { ppOutput  = hPutStrLn xmproc
-      , ppTitle   = xmobarColor "#7cafc2" "" . shorten 100
+      , ppTitle   = xmobarColor "#7cafc2" "" . shorten 50
       , ppCurrent = xmobarColor "#f7ca88" "" . wrap "[" "]"
       -- , ppLayout  = const ""
       , ppLayout = \layStr -> let ls = words layStr
