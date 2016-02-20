@@ -48,8 +48,8 @@ main = do
         , ((0, xK_Print),            spawn "scrot")
         , ((controlMask, xK_Return), spawn "dmenu_run")
         , ((0, xK_F1),               spawn "amixer -D pulse sset Master toggle")
-        , ((0, xK_F2),               spawn "amixer -D pulse sset Master 10%-")
-        , ((0, xK_F3),               spawn "amixer -D pulse sset Master 10%+")
+        , ((0, xK_F2),               spawn "amixer -D pulse sset Master 5%-")
+        , ((0, xK_F3),               spawn "amixer -D pulse sset Master 5%+")
         , ((0, xK_F5),               spawn "xbacklight -dec 10")
         , ((0, xK_F6),               spawn "xbacklight -inc 10")
         ]
