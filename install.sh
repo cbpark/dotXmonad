@@ -14,12 +14,12 @@ function check {
 
 DOTXMONAD=$HOME/.xmonad
 
-if command -v xmonad 2>/dev/null; then
+if command -v xmonad >/dev/null 2>&1; then
+    check xmobar
+    check stalonetray
     backup ".xmonad"
     backup ".xmobarrc"
     backup ".stalonetrayrc"
-    check "xmobar"
-    check "stalonetray"
     git clone git@github.com:cbpark/dotXmonad.git $DOTXMONAD
     ln -sf $DOTXMONAD/xmobarrc $HOME/.xmobarrc
     ln -sf $DOTXMONAD/stalonetrayrc $HOME/.stalonetrayrc
