@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 function backup {
     if [ -e $HOME/$1 ]; then
@@ -7,15 +7,24 @@ function backup {
     fi
 }
 
+function check {
+    command -v $1 >/dev/null 2>&1 \
+        || { echo "-- $1 is not found." >&2; exit 1; }
+}
+
+DOTXMONAD=$HOME/.xmonad
+
 if command -v xmonad 2>/dev/null; then
     backup ".xmonad"
     backup ".xmobarrc"
     backup ".stalonetrayrc"
-    git clone git@github.com:cbpark/dotXmonad.git $HOME/.xmonad
-    command -v xmobar >/dev/null 2>&1 || { echo "You have to install xmobar." >&2; exit 1;}
-    ln -sf $HOME/.xmonad/xmobarrc $HOME/.xmobarrc
-    ln -sf $HOME/.xmonad/stalonetrayrc $HOME/.stalonetrayrc
+    check "xmobar"
+    check "stalonetray"
+    git clone git@github.com:cbpark/dotXmonad.git $DOTXMONAD
+    ln -sf $DOTXMONAD/xmobarrc $HOME/.xmobarrc
+    ln -sf $DOTXMONAD/stalonetrayrc $HOME/.stalonetrayrc
     xmonad --recompile
+    [ ! -s $DOTXMONAD/xmonad.errors ] && { cat xmonad.errors; exit 1; }
 else
     echo "-- xmonad is not found."
     exit 1
