@@ -1,28 +1,24 @@
 #! /usr/bin/env bash
 
-function backup {
+function backup_old {
     if [ -e $HOME/$1 ]; then
         echo "-- $1 found."
         mv -v $HOME/$1 $HOME/"$1.old"
     fi
 }
 
-function check {
-    command -v $1 >/dev/null 2>&1 \
-        || { echo "-- $1 is not found." >&2; exit 1; }
+function check_or_die {
+    command -v $1 >/dev/null 2>&1 || { echo "-- $1 is not found." >&2; exit 1; }
 }
 
 DOTXMONAD=$HOME/.xmonad
 
 if command -v xmonad >/dev/null 2>&1; then
-    check xmobar
-    check stalonetray
-    backup ".xmonad"
-    backup ".xmobarrc"
-    backup ".stalonetrayrc"
+    check_or_die xmobar
+    backup_old ".xmonad"
+    backup_old ".xmobarrc"
     git clone git@github.com:cbpark/dotXmonad.git $DOTXMONAD
     ln -sf $DOTXMONAD/xmobarrc $HOME/.xmobarrc
-    ln -sf $DOTXMONAD/stalonetrayrc $HOME/.stalonetrayrc
     xmonad --recompile
     [ ! -s $DOTXMONAD/xmonad.errors ] && { cat xmonad.errors; exit 1; }
 else
@@ -30,9 +26,17 @@ else
     exit 1
 fi
 
+if command -v stalonetray >/dev/null 2>&1; then
+    echo "-- stalonetray found."
+    backup_old ".stalonetrayrc"
+    ln -sf $DOTXMONAD/stalonetrayrc $HOME/.stalonetrayrc
+    stalonetray &
+fi
+
 if command -v compton >/dev/null 2>&1; then
     echo "-- compton found."
-    mkdir -p $HOME/.config
-    ln -sf $DOTXMONAD/compton.conf $HOME/.config
+    backup_old ".config/compton.conf"
+    # mkdir -p $HOME/.config
+    ln -sf $DOTXMONAD/compton.conf $HOME/.config/compton.conf
     compton -b
 fi
