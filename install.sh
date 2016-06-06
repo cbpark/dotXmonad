@@ -29,3 +29,10 @@ else
     echo "-- xmonad is not found."
     exit 1
 fi
+
+if command -v compton >/dev/null 2>&1; then
+    echo "-- compton found."
+    mkdir -p $HOME/.config
+    ln -sf $DOTXMONAD/compton.conf $HOME/.config
+    compton -b
+fi
