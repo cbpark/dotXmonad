@@ -1,9 +1,5 @@
 module Main where
 
-import           Control.Monad              (when)
-import           Data.Monoid                (All (..))
-import           System.IO
-
 import           XMonad
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks   (avoidStruts, manageDocks)
@@ -13,6 +9,10 @@ import           XMonad.Layout.Spacing      (smartSpacing)
 import qualified XMonad.StackSet            as W
 import           XMonad.Util.EZConfig       (additionalKeys)
 import           XMonad.Util.Run            (spawnPipe)
+
+import           Control.Monad              (when)
+import           Data.Monoid                (All (..))
+import           System.IO
 
 main :: IO ()
 main = do
@@ -24,7 +24,7 @@ main = do
                                   -- , className =? "Vlc" --> doFullFloat
                                   , manageHook def ]
         , handleEventHook = evHook
-        , layoutHook = avoidStruts . smartBorders . smartSpacing 8 $ layoutHook def
+        , layoutHook = avoidStruts . smartBorders . smartSpacing 10 $ layoutHook def
         , logHook = dynamicLogWithPP xmobarPP
           { ppOutput  = hPutStrLn xmproc
           , ppTitle   = xmobarColor "#7cafc2" "" . shorten 50
@@ -38,7 +38,7 @@ main = do
         , terminal = "urxvt"
         , modMask = mod4Mask
         , focusFollowsMouse = False
-        , borderWidth        = 4
+        , borderWidth        = 5
         , normalBorderColor  = "#181818"
         , focusedBorderColor = "#7cafc2"  -- "#a1b56c"
         } `additionalKeys`
