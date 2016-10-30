@@ -12,9 +12,11 @@ function check_or_die {
 }
 
 DOTXMONAD=$HOME/.xmonad
+CONTRIB=$(ghc-pkg list | grep "xmonad-contrib")
 
 if command -v xmonad >/dev/null 2>&1; then
     check_or_die xmobar
+    [ "" == "$CONTRIB" ] && { echo "-- xmonad-contrib is not found."; exit 1; }
     backup_old ".xmonad"
     backup_old ".xmobarrc"
     git clone git@github.com:cbpark/dotXmonad.git $DOTXMONAD
