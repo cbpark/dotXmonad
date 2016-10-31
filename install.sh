@@ -33,7 +33,7 @@ if command -v stalonetray >/dev/null 2>&1; then
     echo "-- stalonetray found."
     backup_old ".stalonetrayrc"
     ln -sf $DOTXMONAD/stalonetrayrc $HOME/.stalonetrayrc
-    stalonetray &
+    kill $(pgrep stalonetray) && stalonetray &
 fi
 
 if command -v compton >/dev/null 2>&1; then
@@ -41,5 +41,5 @@ if command -v compton >/dev/null 2>&1; then
     backup_old ".config/compton.conf"
     # mkdir -p $HOME/.config
     ln -sf $DOTXMONAD/compton.conf $HOME/.config/compton.conf
-    compton -b
+    kill $(pgrep compton) && compton -b
 fi
