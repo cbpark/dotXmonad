@@ -24,7 +24,7 @@ main = do
                                   -- , className =? "Vlc" --> doFullFloat
                                   , manageHook def ]
         , handleEventHook = evHook
-        , layoutHook = avoidStruts . smartBorders . smartSpacing 10 $ layoutHook def
+        , layoutHook = avoidStruts . smartBorders . smartSpacing 8 $ layoutHook def
         , logHook = dynamicLogWithPP xmobarPP
           { ppOutput  = hPutStrLn xmproc
           , ppTitle   = xmobarColor "#7cafc2" "" . shorten 50
