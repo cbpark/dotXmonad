@@ -5,7 +5,6 @@ import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.ManageDocks   (avoidStruts, manageDocks)
 import           XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
 import           XMonad.Layout.NoBorders    (smartBorders)
-import           XMonad.Layout.Spacing      (smartSpacing)
 import qualified XMonad.StackSet            as W
 import           XMonad.Util.EZConfig       (additionalKeys)
 import           XMonad.Util.Run            (spawnPipe)
@@ -24,7 +23,7 @@ main = do
                                   -- , className =? "Vlc" --> doFullFloat
                                   , manageHook def ]
         , handleEventHook = evHook
-        , layoutHook = avoidStruts . smartBorders . smartSpacing 8 $ layoutHook def
+        , layoutHook = avoidStruts . smartBorders $ layoutHook def
         , logHook = dynamicLogWithPP xmobarPP
           { ppOutput  = hPutStrLn xmproc
           , ppTitle   = xmobarColor "#7cafc2" "" . shorten 50
