@@ -2,6 +2,7 @@ module Main where
 
 import           XMonad
 import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.EwmhDesktops  (ewmh)
 import           XMonad.Hooks.ManageDocks   (avoidStruts, manageDocks)
 import           XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
 import           XMonad.Layout.NoBorders    (smartBorders)
@@ -17,7 +18,7 @@ main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar"
 
-    xmonad $ def
+    xmonad $ ewmh def
         { manageHook = composeAll [ manageDocks
                                   , isFullscreen --> doFullFloat
                                   -- , className =? "Vlc" --> doFullFloat
