@@ -1,10 +1,10 @@
 Config { font = "xft:D2Coding:size=10:style=Bold:antialias=true"
-       , borderColor = "#181818"
+       , borderColor = "#1f1f1f"
        , border = TopB
-       , bgColor = "#181818"
-       , fgColor = "#b8b8b8"
+       , bgColor = "#1f1f1f"
+       , fgColor = "#dcdccc"
        , position = TopW L 100
-       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#a1b56c","--high","#ab4642"] 10
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","#7f9f7f","--high","#dc8cc3"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
@@ -14,5 +14,5 @@ Config { font = "xft:D2Coding:size=10:style=Bold:antialias=true"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% | %cpu% | %memory% | %volume% }{<fc=#dc9656>%date%</fc> "
+       , template = "%StdinReader% | %cpu% | %memory% | %volume% }{<fc=#d0bf8f>%date%</fc> "
        }

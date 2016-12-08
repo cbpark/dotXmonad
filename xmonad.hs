@@ -27,8 +27,8 @@ main = do
         , layoutHook = avoidStruts . smartBorders $ layoutHook def
         , logHook = dynamicLogWithPP xmobarPP
           { ppOutput  = hPutStrLn xmproc
-          , ppTitle   = xmobarColor "#7cafc2" "" . shorten 50
-          , ppCurrent = xmobarColor "#f7ca88" "" . wrap "[" "]"
+          , ppTitle   = xmobarColor "#6ca0a3" "" . shorten 50
+          , ppCurrent = xmobarColor "#d0bf8f" "" . wrap "[" "]"
             -- , ppLayout  = const ""
           , ppLayout = \layStr -> let ls = words layStr
                                   in unwords $ if length ls > 2
@@ -39,8 +39,8 @@ main = do
         , modMask = mod4Mask
         , focusFollowsMouse = False
         , borderWidth        = 5
-        , normalBorderColor  = "#181818"
-        , focusedBorderColor = "#7cafc2"  -- "#a1b56c"
+        , normalBorderColor  = "#1f1f1f"
+        , focusedBorderColor = "#6ca0a3"
         } `additionalKeys`
         [ ((mod4Mask .|. shiftMask, xK_z), spawn
            "xscreensaver-command -lock; xset dpms force off")

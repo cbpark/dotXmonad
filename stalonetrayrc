@@ -13,4 +13,4 @@ window_type dock
 window_layer bottom
 #no_shrink false
 skip_taskbar true
-background "#181818"
+background "#1f1f1f"
