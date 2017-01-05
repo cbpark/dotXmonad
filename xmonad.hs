@@ -58,7 +58,7 @@ myEventHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
 myEventHook _ = return $ All True
 
 fullFloat, tileWin :: Window -> X ()
-fullFloat = windows . (flip W.float) (W.RationalRect 0 0 1 1)
+fullFloat = windows . flip W.float (W.RationalRect 0 0 1 1)
 tileWin = windows . W.sink
 
 myLogHook :: Handle -> X ()
