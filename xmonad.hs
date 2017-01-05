@@ -18,19 +18,20 @@ import           System.IO
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar"
-
     xmonad $ ewmh def
         { manageHook = composeAll [ manageDocks
                                   , isFullscreen --> doFullFloat
                                   -- , className =? "Vlc" --> doFullFloat
                                   , manageHook def ]
         , handleEventHook = myEventHook
-        , layoutHook = avoidStruts . smartBorders . smartSpacing 10 $ layoutHook def
+        , layoutHook = avoidStruts . smartBorders . smartSpacing 10 $
+                       layoutHook def
         , logHook = myLogHook xmproc
+
         , terminal = "urxvt"
         , modMask = mod4Mask
         , focusFollowsMouse = False
-        , borderWidth        = 5
+        , borderWidth = 5
         , normalBorderColor  = "#1f1f1f"
         , focusedBorderColor = "#6ca0a3"
         } `additionalKeys` myKeys
@@ -47,7 +48,8 @@ myEventHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
         action = head dat
     when (typ == st && fromIntegral fullsc `elem` tail dat) $ do
         when (action == add || (action == toggle && not isFull)) $ do
-            io $ changeProperty32 dpy win st ptype propModeReplace [fromIntegral fullsc]
+            io $ changeProperty32 dpy win st ptype propModeReplace
+                 [fromIntegral fullsc]
             fullFloat win
         when (head dat == remove || (action == toggle && isFull)) $ do
             io $ changeProperty32 dpy win st ptype propModeReplace []
@@ -56,8 +58,8 @@ myEventHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
 myEventHook _ = return $ All True
 
 fullFloat, tileWin :: Window -> X ()
-fullFloat w = windows $ W.float w (W.RationalRect 0 0 1 1)
-tileWin w = windows $ W.sink w
+fullFloat = windows . (flip W.float) (W.RationalRect 0 0 1 1)
+tileWin = windows . W.sink
 
 myLogHook :: Handle -> X ()
 myLogHook proc =
@@ -67,9 +69,9 @@ myLogHook proc =
     , ppCurrent = xmobarColor "#d0bf8f" "" . wrap "[" "]"
     -- , ppLayout  = const ""
     , ppLayout = \layStr -> let ls = words layStr
-                            in unwords $ if length ls > 2
-                                         then (tail . tail) ls
-                                         else ls
+                            in unwords (if length ls > 2
+                                        then (tail . tail) ls
+                                        else ls)
     }
 
 myKeys :: [((KeyMask, KeySym), X ())]
