@@ -13,7 +13,7 @@ import           XMonad.Util.Run            (spawnPipe)
 
 import           Control.Monad              (when)
 import           Data.Monoid                (All (..))
-import           System.IO
+import           System.IO                  (Handle, hPutStrLn)
 
 main :: IO ()
 main = do
@@ -21,8 +21,8 @@ main = do
     xmonad $ ewmh def
         { manageHook = composeAll [ manageDocks
                                   , isFullscreen --> doFullFloat
-                                  -- , className =? "Vlc" --> doFullFloat
-                                  , manageHook def ]
+                                  , manageHook def
+                                  ]
         , handleEventHook = myEventHook
         , layoutHook = avoidStruts . smartBorders . smartSpacing 10 $
                        layoutHook def
@@ -66,11 +66,10 @@ myLogHook proc =
     { ppOutput  = hPutStrLn proc
     , ppTitle   = xmobarColor "#6ca0a3" "" . shorten 50
     , ppCurrent = xmobarColor "#d0bf8f" "" . wrap "[" "]"
-    -- , ppLayout  = const ""
-    , ppLayout = \layStr -> let ls = words layStr
-                            in unwords (if length ls > 2
-                                        then (tail . tail) ls
-                                        else ls)
+    , ppLayout  = \layStr -> let ls = words layStr
+                             in unwords (if length ls > 2
+                                         then (tail . tail) ls
+                                         else ls)
     }
 
 myKeys :: [((KeyMask, KeySym), X ())]
