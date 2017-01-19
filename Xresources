@@ -57,7 +57,7 @@ URxvt*cursorBlink:                    false
 ! URxvt*pointerColor2:                  color
 ! URxvt*borderColor:                    color
 ! URxvt*iconFile:                       file
-URxvt*font:                           xft:Source Code Pro:size=9:style=Semibold:antialias=true
+URxvt*font:                           xft:Source Code Pro:size=9:style=Medium:antialias=true
 URxvt*boldFont:                       xft:Source Code Pro:size=9:style=Bold:antialias=true
 URxvt*italicFont:                     xft:Source Code Pro:size=9:style=Italic:antialias=true
 ! URxvt*boldItalicFont:                 fontname
