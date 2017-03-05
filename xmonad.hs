@@ -1,31 +1,28 @@
 module Main where
 
-import           XMonad
-import           XMonad.Hooks.DynamicLog
-import           XMonad.Hooks.EwmhDesktops  (ewmh)
-import           XMonad.Hooks.ManageDocks   (avoidStruts, docksEventHook,
-                                             manageDocks)
-import           XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
-import           XMonad.Layout.NoBorders    (smartBorders)
-import           XMonad.Layout.Spacing      (smartSpacing)
-import qualified XMonad.StackSet            as W
-import           XMonad.Util.EZConfig       (additionalKeys)
-import           XMonad.Util.Run            (spawnPipe)
+import XMonad
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops  (ewmh)
+import XMonad.Hooks.ManageDocks   (avoidStruts, docksEventHook, manageDocks)
+import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
+import XMonad.Layout.Fullscreen   (fullscreenSupport)
+import XMonad.Layout.NoBorders    (smartBorders)
+import XMonad.Layout.Spacing      (smartSpacing)
+import XMonad.Util.EZConfig       (additionalKeys)
+import XMonad.Util.Run            (spawnPipe)
 
-import           Control.Monad              (when)
-import           Data.Monoid                (All (..))
-import           System.IO                  (Handle, hPutStrLn)
+import System.IO                  (Handle, hPutStrLn)
 
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ ewmh def
+    xmonad $ fullscreenSupport $ ewmh def
         { manageHook = composeAll [ manageDocks
                                   , isFullscreen --> doFullFloat
                                   , manageHook def
                                   ]
-        , handleEventHook =  fullscreenEventHook <+> docksEventHook
-        , layoutHook = avoidStruts . smartBorders . smartSpacing 10 $
+        , handleEventHook = docksEventHook
+        , layoutHook = avoidStruts $ smartBorders . smartSpacing 10 $
                        layoutHook def
         , logHook = myLogHook xmproc
         , terminal = "urxvt"
@@ -36,41 +33,16 @@ main = do
         , focusedBorderColor = "#6ca0a3"
         } `additionalKeys` myKeys
 
-fullscreenEventHook :: Event -> X All
-fullscreenEventHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
-    st     <- getAtom "_NET_WM_STATE"
-    fullsc <- getAtom "_NET_WM_STATE_FULLSCREEN"
-    isFull <- runQuery isFullscreen win
-    let remove = 0
-        add    = 1
-        toggle = 2
-        ptype  = 4
-        action = head dat
-    when (typ == st && fromIntegral fullsc `elem` tail dat) $ do
-        when (action == add || (action == toggle && not isFull)) $ do
-            io $ changeProperty32 dpy win st ptype propModeReplace
-                 [fromIntegral fullsc]
-            fullFloat win
-        when (head dat == remove || (action == toggle && isFull)) $ do
-            io $ changeProperty32 dpy win st ptype propModeReplace []
-            tileWin win
-    return $ All False
-  where
-    fullFloat, tileWin :: Window -> X ()
-    fullFloat = windows . flip W.float (W.RationalRect 0 0 1 1)
-    tileWin = windows . W.sink
-fullscreenEventHook _ = return (All True)
-
 myLogHook :: Handle -> X ()
 myLogHook proc =
     dynamicLogWithPP xmobarPP
     { ppOutput  = hPutStrLn proc
     , ppTitle   = xmobarColor "#6ca0a3" "" . shorten 50
     , ppCurrent = xmobarColor "#d0bf8f" "" . wrap "[" "]"
-    , ppLayout  = \layStr -> let ls = words layStr
-                             in unwords (if length ls > 2
-                                         then (tail . tail) ls
-                                         else ls)
+    , ppLayout  = \str -> let ls = words str
+                          in unwords (if length ls > 2
+                                      then (tail . tail) ls
+                                      else ls)
     }
 
 myKeys :: [((KeyMask, KeySym), X ())]
