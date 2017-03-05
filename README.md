@@ -12,7 +12,7 @@ curl -L https://raw.githubusercontent.com/cbpark/dotXmonad/master/install.sh | $
 
 ## Terminal
 
-Note that the default terminal emulator is set to be [`urxvt`](http://software.schmorp.de/pkg/rxvt-unicode.html). See [`Xresources`](https://github.com/cbpark/dotXmonad/blob/master/Xresources) for its configuration.
+Note that the default terminal emulator is set to be [`urxvt`](http://software.schmorp.de/pkg/rxvt-unicode.html). See [`Xresources`](Xresources) for its configuration.
 
 ## Keyboard backlight
 
