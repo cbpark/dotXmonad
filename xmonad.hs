@@ -84,4 +84,6 @@ myKeys =
     , ((0, xK_F3),               spawn "amixer -D pulse sset Master 5%+")
     , ((0, xK_F5),               spawn "xbacklight -dec 10")
     , ((0, xK_F6),               spawn "xbacklight -inc 10")
+    , ((0, xK_F7),               spawn "kb-light.py -")
+    , ((0, xK_F8),               spawn "kb-light.py +")
     ]
