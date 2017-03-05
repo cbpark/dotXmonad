@@ -3,7 +3,8 @@ module Main where
 import           XMonad
 import           XMonad.Hooks.DynamicLog
 import           XMonad.Hooks.EwmhDesktops  (ewmh)
-import           XMonad.Hooks.ManageDocks   (avoidStruts, manageDocks)
+import           XMonad.Hooks.ManageDocks   (avoidStruts, docksEventHook,
+                                             manageDocks)
 import           XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
 import           XMonad.Layout.NoBorders    (smartBorders)
 import           XMonad.Layout.Spacing      (smartSpacing)
@@ -23,7 +24,7 @@ main = do
                                   , isFullscreen --> doFullFloat
                                   , manageHook def
                                   ]
-        , handleEventHook = myEventHook
+        , handleEventHook =  fullscreenEventHook <+> docksEventHook
         , layoutHook = avoidStruts . smartBorders . smartSpacing 10 $
                        layoutHook def
         , logHook = myLogHook xmproc
@@ -35,8 +36,8 @@ main = do
         , focusedBorderColor = "#6ca0a3"
         } `additionalKeys` myKeys
 
-myEventHook :: Event -> X All
-myEventHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
+fullscreenEventHook :: Event -> X All
+fullscreenEventHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
     st     <- getAtom "_NET_WM_STATE"
     fullsc <- getAtom "_NET_WM_STATE_FULLSCREEN"
     isFull <- runQuery isFullscreen win
@@ -54,11 +55,11 @@ myEventHook (ClientMessageEvent _ _ _ dpy win typ dat) = do
             io $ changeProperty32 dpy win st ptype propModeReplace []
             tileWin win
     return $ All False
-myEventHook _ = return $ All True
-
-fullFloat, tileWin :: Window -> X ()
-fullFloat = windows . flip W.float (W.RationalRect 0 0 1 1)
-tileWin = windows . W.sink
+  where
+    fullFloat, tileWin :: Window -> X ()
+    fullFloat = windows . flip W.float (W.RationalRect 0 0 1 1)
+    tileWin = windows . W.sink
+fullscreenEventHook _ = return (All True)
 
 myLogHook :: Handle -> X ()
 myLogHook proc =
