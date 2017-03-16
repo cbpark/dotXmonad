@@ -19,13 +19,10 @@ main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar"
     xmonad $ fullscreenSupport $ ewmh def
-        { manageHook = composeAll [ manageDocks
-                                  , isFullscreen --> doFullFloat
-                                  , manageHook def
-                                  ]
+        { manageHook = myManageHook def
         , handleEventHook = docksEventHook
-        , layoutHook = avoidStruts $ smartBorders . smartSpacing 10 $
-                       layoutHook def
+        , layoutHook = avoidStruts $
+                       (smartBorders . smartSpacing 10) (layoutHook def)
         , logHook = myLogHook xmproc
         , terminal = "urxvt"
         , modMask = mod4Mask
@@ -34,6 +31,14 @@ main = do
         , normalBorderColor  = "#1f1f1f"
         , focusedBorderColor = "#6ca0a3"
         } `additionalKeys` myKeys
+
+myManageHook :: XConfig a -> ManageHook
+myManageHook conf = composeAll [ manageDocks
+                               , className =? "vlc" --> doFloat
+                               , resource =? "stalonetray" --> doIgnore
+                               , isFullscreen --> doFullFloat
+                               , manageHook conf
+                               ]
 
 myLogHook :: Handle -> X ()
 myLogHook proc =
