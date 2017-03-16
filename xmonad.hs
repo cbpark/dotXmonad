@@ -1,17 +1,19 @@
 module Main where
 
 import XMonad
+import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops  (ewmh)
-import XMonad.Hooks.ManageDocks   (avoidStruts, docksEventHook, manageDocks)
-import XMonad.Hooks.ManageHelpers (doFullFloat, isFullscreen)
-import XMonad.Layout.Fullscreen   (fullscreenSupport)
-import XMonad.Layout.NoBorders    (smartBorders)
-import XMonad.Layout.Spacing      (smartSpacing)
-import XMonad.Util.EZConfig       (additionalKeys)
-import XMonad.Util.Run            (spawnPipe)
+import XMonad.Hooks.EwmhDesktops    (ewmh)
+import XMonad.Hooks.FadeInactive    (fadeIf, fadeOutLogHook, isUnfocused)
+import XMonad.Hooks.ManageDocks     (avoidStruts, docksEventHook, manageDocks)
+import XMonad.Hooks.ManageHelpers   (doFullFloat, isFullscreen)
+import XMonad.Layout.Fullscreen     (fullscreenSupport)
+import XMonad.Layout.NoBorders      (smartBorders)
+import XMonad.Layout.Spacing        (smartSpacing)
+import XMonad.Util.EZConfig         (additionalKeys)
+import XMonad.Util.Run              (spawnPipe)
 
-import System.IO                  (Handle, hPutStrLn)
+import System.IO                    (Handle, hPutStrLn)
 
 main :: IO ()
 main = do
@@ -42,8 +44,11 @@ myLogHook proc =
     , ppLayout  = \str -> let ls = words str
                           in unwords (if length ls > 2
                                       then (tail . tail) ls
-                                      else ls)
-    }
+                                      else ls) }
+    -- move the pointer to the focused window
+    >> updatePointer (0.5, 0.5) (1, 1)
+    -- make inactive windows translucent
+    >> (fadeOutLogHook . fadeIf isUnfocused) 0.9
 
 myKeys :: [((KeyMask, KeySym), X ())]
 myKeys =
