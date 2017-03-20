@@ -17,7 +17,7 @@ import System.IO                    (Handle, hPutStrLn)
 
 main :: IO ()
 main = do
-    xmproc <- spawnPipe "xmobar"
+    xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
     xmonad $ fullscreenSupport $ ewmh def
         { manageHook = myManageHook def
         , handleEventHook = docksEventHook

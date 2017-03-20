@@ -19,9 +19,9 @@ if command -v xmonad >/dev/null 2>&1; then
     check_or_die xmobar
     [ "" == "$CONTRIB" ] && { echo "-- xmonad-contrib is not found."; exit 1; }
     backup_old ".xmonad"
-    backup_old ".xmobarrc"
+    # backup_old ".xmobarrc"
     git clone $REPO $DOTXMONAD
-    ln -sf $DOTXMONAD/xmobarrc $HOME/.xmobarrc
+    # ln -sf $DOTXMONAD/xmobarrc $HOME/.xmobarrc
     xmonad --recompile
     [ ! -s $DOTXMONAD/xmonad.errors ] && { cat xmonad.errors; exit 1; }
 else
