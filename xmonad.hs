@@ -10,7 +10,7 @@ import XMonad.Hooks.ManageHelpers   (doFullFloat, isFullscreen)
 import XMonad.Layout.Fullscreen     (fullscreenSupport)
 import XMonad.Layout.NoBorders      (smartBorders)
 import XMonad.Layout.Spacing        (smartSpacing)
-import XMonad.Util.EZConfig         (additionalKeys)
+import XMonad.Util.EZConfig         (additionalKeys, removeKeys)
 import XMonad.Util.Run              (spawnPipe)
 
 import System.IO                    (Handle, hPutStrLn)
@@ -30,7 +30,7 @@ main = do
         , borderWidth = 5
         , normalBorderColor  = "#1f1f1f"
         , focusedBorderColor = "#6ca0a3"
-        } `additionalKeys` myKeys
+        } `additionalKeys` myKeybindings `removeKeys` removedKeys
 
 myManageHook :: XConfig a -> ManageHook
 myManageHook conf = composeAll [ manageDocks
@@ -55,8 +55,8 @@ myLogHook proc =
     -- make inactive windows translucent
     >> (fadeOutLogHook . fadeIf isUnfocused) 0.9
 
-myKeys :: [((KeyMask, KeySym), X ())]
-myKeys =
+myKeybindings :: [((KeyMask, KeySym), X ())]
+myKeybindings =
     [ ((mod4Mask .|. shiftMask, xK_z),
        spawn "xscreensaver-command -lock; xset dpms force off")
     , ((mod4Mask .|. shiftMask, xK_t), spawn "toggle_composite.sh")
@@ -73,3 +73,6 @@ myKeys =
     , ((0, xK_F7),               spawn "kb-light.py -")
     , ((0, xK_F8),               spawn "kb-light.py +")
     ]
+
+removedKeys :: [(KeyMask, KeySym)]
+removedKeys = [(mod4Mask, xK_p)]
