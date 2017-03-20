@@ -30,7 +30,7 @@ main = do
         , borderWidth = 5
         , normalBorderColor  = "#1f1f1f"
         , focusedBorderColor = "#6ca0a3"
-        } `additionalKeys` myKeybindings `removeKeys` removedKeys
+        } `additionalKeys` myKeybindings `removeKeys` unusedKeys
 
 myManageHook :: XConfig a -> ManageHook
 myManageHook conf = composeAll [ manageDocks
@@ -77,5 +77,5 @@ myKeybindings =
     , ((0, xK_F8),               spawn "kb-light.py +")
     ]
 
-removedKeys :: [(KeyMask, KeySym)]
-removedKeys = [(myModMask, xK_p)]
+unusedKeys :: [(KeyMask, KeySym)]
+unusedKeys = [(myModMask, xK_p)]
