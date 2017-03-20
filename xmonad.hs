@@ -25,7 +25,7 @@ main = do
                        (smartBorders . smartSpacing 10) (layoutHook def)
         , logHook = myLogHook xmproc
         , terminal = "urxvt"
-        , modMask = mod4Mask
+        , modMask = myModMask
         , focusFollowsMouse = False
         , borderWidth = 5
         , normalBorderColor  = "#1f1f1f"
@@ -55,16 +55,19 @@ myLogHook proc =
     -- make inactive windows translucent
     >> (fadeOutLogHook . fadeIf isUnfocused) 0.9
 
+myModMask :: KeyMask
+myModMask = mod4Mask
+
 myKeybindings :: [((KeyMask, KeySym), X ())]
 myKeybindings =
-    [ ((mod4Mask .|. shiftMask, xK_z),
+    [ ((myModMask .|. shiftMask, xK_z),
        spawn "xscreensaver-command -lock; xset dpms force off")
-    , ((mod4Mask .|. shiftMask, xK_t), spawn "toggle_composite.sh")
-    , ((mod4Mask .|. shiftMask, xK_e), spawn "ec")
-    , ((mod4Mask .|. shiftMask, xK_f), spawn "firefox")
+    , ((myModMask .|. shiftMask, xK_t), spawn "toggle_composite.sh")
+    , ((myModMask .|. shiftMask, xK_e), spawn "ec")
+    , ((myModMask .|. shiftMask, xK_f), spawn "firefox")
     , ((controlMask, xK_Print),  spawn "sleep 0.2; scrot -s")
-    , ((0, xK_Print),            spawn "scrot")
     , ((controlMask, xK_Return), spawn "dmenu_run")
+    , ((0, xK_Print),            spawn "scrot")
     , ((0, xK_F1),               spawn "amixer -D pulse sset Master toggle")
     , ((0, xK_F2),               spawn "amixer -D pulse sset Master 5%-")
     , ((0, xK_F3),               spawn "amixer -D pulse sset Master 5%+")
@@ -75,4 +78,4 @@ myKeybindings =
     ]
 
 removedKeys :: [(KeyMask, KeySym)]
-removedKeys = [(mod4Mask, xK_p)]
+removedKeys = [(myModMask, xK_p)]
