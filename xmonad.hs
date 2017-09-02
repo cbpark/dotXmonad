@@ -27,7 +27,7 @@ main = do
         , terminal = "urxvt"
         , modMask = myModMask
         , focusFollowsMouse = False
-        , borderWidth = 2
+        , borderWidth = 4
         , normalBorderColor  = "#1f1f1f"
         , focusedBorderColor = "#6ca0a3"
         } `additionalKeys` myKeybindings `removeKeys` unusedKeys
