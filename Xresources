@@ -1,5 +1,5 @@
 ! Xft settings
-Xft.dpi:        136
+Xft.dpi:        134
 Xft.autohint:   0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
@@ -57,7 +57,7 @@ URxvt*cursorBlink:                    false
 ! URxvt*pointerColor2:                  color
 ! URxvt*borderColor:                    color
 ! URxvt*iconFile:                       file
-URxvt*font:                           xft:Source Code Pro:size=9:style=Medium:antialias=true
+URxvt*font:                           xft:Source Code Pro:size=9:style=Regular:antialias=true
 URxvt*boldFont:                       xft:Source Code Pro:size=9:style=Bold:antialias=true
 URxvt*italicFont:                     xft:Source Code Pro:size=9:style=Italic:antialias=true
 ! URxvt*boldItalicFont:                 fontname

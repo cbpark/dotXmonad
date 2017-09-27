@@ -61,7 +61,7 @@ myModMask = mod4Mask
 myKeybindings :: [((KeyMask, KeySym), X ())]
 myKeybindings =
     [ ((myModMask .|. shiftMask, xK_z),
-       spawn "xscreensaver-command -lock; xset dpms force off")
+       spawn "xscreensaver-command -lock; sleep 1; xset dpms force off")
     , ((myModMask .|. shiftMask, xK_t), spawn "toggle_composite.sh")
     , ((myModMask .|. shiftMask, xK_e), spawn "ec")
     , ((myModMask .|. shiftMask, xK_f), spawn "firefox")
