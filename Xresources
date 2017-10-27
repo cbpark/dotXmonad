@@ -1,5 +1,5 @@
 ! Xft settings
-Xft.dpi:        134
+Xft.dpi:        144
 Xft.autohint:   0
 Xft.lcdfilter:  lcddefault
 Xft.hintstyle:  hintfull
@@ -78,8 +78,8 @@ URxvt*depth:                          32
 ! URxvt*externalBorder:                 number
 ! URxvt*internalBorder:                 number
 ! URxvt*borderLess:                     boolean
-URxvt*lineSpace:                      -2
-URxvt*letterSpace:                    -2
+URxvt*lineSpace:                      -1
+URxvt*letterSpace:                    -1
 ! URxvt*skipBuiltinGlyphs:              boolean
 ! URxvt*pointerBlankDelay:              number
 ! URxvt*backspacekey:                   string
@@ -99,8 +99,8 @@ URxvt*iso14755:                       False
 ! URxvt*xrm:                            string
 URxvt.keysym.Shift-Control-C:         perl:clipboard:copy
 URxvt.keysym.Shift-Control-V:         perl:clipboard:paste
-URxvt.clipboard.copycmd:              xsel -ib
-URxvt.clipboard.pastecmd:             xsel -ob
+URxvt.clipboard.copycmd:              /usr/bin/xsel -ib
+URxvt.clipboard.pastecmd:             /usr/bin/xsel -ob
 ! URxvt*background.border:              boolean
 ! URxvt*background.expr:                string
 ! URxvt*background.interval:            seconds
@@ -173,13 +173,13 @@ URxvt.url-select.underline:           true
 ! *.color21:      base06
 
 ! Zenburn
-! #define zenburn0 #3f3f3f
-#define zenburn0 #1f1f1f
-*.background:   zenburn0
+! #define zenburn00 #3f3f3f
+#define zenburn00 #1f1f1f
+*.background:   zenburn00
 *.foreground:   #dcdccc
 *.cursorColor:  #aaaaaa
 *.colorUL:      #669090
-*.color0:       zenburn0
+*.color0:       zenburn00
 *.color1:       #cc9393
 *.color2:       #7f9f7f
 *.color3:       #d0bf8f
