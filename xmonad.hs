@@ -10,6 +10,7 @@ import XMonad.Hooks.ManageHelpers   (doFullFloat, isFullscreen)
 import XMonad.Layout.Fullscreen     (fullscreenSupport)
 import XMonad.Layout.NoBorders      (smartBorders)
 import XMonad.Layout.Spacing        (smartSpacing)
+import XMonad.Layout.Spiral         (spiral)
 import XMonad.Util.EZConfig         (additionalKeys, removeKeys)
 import XMonad.Util.Run              (spawnPipe)
 
@@ -21,8 +22,7 @@ main = do
     xmonad $ fullscreenSupport $ ewmh def
         { manageHook = myManageHook def
         , handleEventHook = docksEventHook
-        , layoutHook = avoidStruts $
-                       (smartBorders . smartSpacing 10) (layoutHook def)
+        , layoutHook = avoidStruts $ (smartBorders . smartSpacing 10) myLayout
         , logHook = myLogHook xmproc
         , terminal = "urxvt"
         , modMask = myModMask
@@ -31,6 +31,9 @@ main = do
         , normalBorderColor  = "#1f1f1f"
         , focusedBorderColor = "#6ca0a3"
         } `additionalKeys` myKeybindings `removeKeys` unusedKeys
+  where
+    myLayout = let tall = Tall 1 (3/100) (1/2)
+               in tall ||| Mirror tall ||| spiral (6/7) ||| Full
 
 myManageHook :: XConfig a -> ManageHook
 myManageHook conf = composeAll [ manageDocks
