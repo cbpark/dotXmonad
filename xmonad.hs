@@ -2,6 +2,7 @@ module Main where
 
 import XMonad
 import XMonad.Actions.UpdatePointer (updatePointer)
+import XMonad.Config.Desktop        (desktopConfig)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops    (ewmh)
 import XMonad.Hooks.FadeInactive    (fadeIf, fadeOutLogHook, isUnfocused)
@@ -19,8 +20,8 @@ import System.IO                    (Handle, hPutStrLn)
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
-    xmonad $ fullscreenSupport $ ewmh def
-        { manageHook = myManageHook def
+    xmonad $ fullscreenSupport $ ewmh desktopConfig
+        { manageHook = myManageHook
         , handleEventHook = docksEventHook
         , layoutHook = avoidStruts $ (smartBorders . smartSpacing 10) myLayout
         , logHook = myLogHook xmproc
@@ -35,13 +36,14 @@ main = do
     myLayout = let tall = Tall 1 (3/100) (1/2)
                in tall ||| Mirror tall ||| spiral (6/7) ||| Full
 
-myManageHook :: XConfig a -> ManageHook
-myManageHook conf = composeAll [ manageDocks
-                               , className =? "vlc" --> doFloat
-                               , resource =? "stalonetray" --> doIgnore
-                               , isFullscreen --> doFullFloat
-                               , manageHook conf
-                               ]
+myManageHook :: ManageHook
+myManageHook = composeAll [ manageDocks
+                          , className    =? "skype"       --> doFloat
+                          , className    =? "vlc"         --> doFloat
+                          , resource     =? "stalonetray" --> doIgnore
+                          , isFullscreen                  --> doFullFloat
+                          ]
+
 
 myLogHook :: Handle -> X ()
 myLogHook proc =
