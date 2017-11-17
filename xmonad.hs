@@ -12,7 +12,7 @@ import XMonad.Layout.Fullscreen     (fullscreenSupport)
 import XMonad.Layout.NoBorders      (smartBorders)
 import XMonad.Layout.Spacing        (smartSpacing)
 import XMonad.Layout.Spiral         (spiral)
-import XMonad.Util.EZConfig         (additionalKeys, removeKeys)
+import XMonad.Util.EZConfig         (additionalKeysP, removeKeysP)
 import XMonad.Util.Run              (spawnPipe)
 
 import System.IO                    (Handle, hPutStrLn)
@@ -31,7 +31,7 @@ main = do
         , borderWidth = 4
         , normalBorderColor  = "#1f1f1f"
         , focusedBorderColor = "#6ca0a3"
-        } `additionalKeys` myKeybindings `removeKeys` unusedKeys
+        } `additionalKeysP` myKeybindings `removeKeysP` unusedKeys
   where
     myLayout = let tall = Tall 1 (3/100) (1/2)
                in tall ||| Mirror tall ||| spiral (6/7) ||| Full
@@ -63,24 +63,21 @@ myLogHook proc =
 myModMask :: KeyMask
 myModMask = mod4Mask
 
-myKeybindings :: [((KeyMask, KeySym), X ())]
+myKeybindings :: [(String, X())]
 myKeybindings =
-    [ ((myModMask .|. shiftMask, xK_z),
+    [ ("M-S-z",
        spawn "xscreensaver-command -lock; sleep 1; xset dpms force off")
-    , ((myModMask .|. shiftMask, xK_t), spawn "toggle_composite.sh")
-    , ((myModMask .|. shiftMask, xK_e), spawn "ec")
-    , ((myModMask .|. shiftMask, xK_f), spawn "firefox")
-    , ((controlMask, xK_Print),  spawn "sleep 0.2; scrot -s")
-    , ((controlMask, xK_Return), spawn "dmenu_run")
-    , ((0, xK_Print),            spawn "scrot")
-    , ((0, xK_F1),               spawn "amixer -D pulse sset Master toggle")
-    , ((0, xK_F2),               spawn "amixer -D pulse sset Master 5%-")
-    , ((0, xK_F3),               spawn "amixer -D pulse sset Master 5%+")
-    , ((0, xK_F5),               spawn "xbacklight -dec 10")
-    , ((0, xK_F6),               spawn "xbacklight -inc 10")
-    , ((0, xK_F7),               spawn "kb-light.py -")
-    , ((0, xK_F8),               spawn "kb-light.py +")
+    , ("M-S-e",                   spawn "ec")
+    , ("M-S-f",                   spawn "firefox")
+    , ("M-S-t",                   spawn "toggle_composite.sh")
+    , ("C-<Return>",              spawn "dmenu_run")
+    , ("C-<Print>",               spawn "scrot")
+    , ("<XF86AudioLowerVolume>",  spawn "amixer -D pulse sset Master 5%-")
+    , ("<XF86AudioRaiseVolume>",  spawn "amixer -D pulse sset Master 5%+")
+    , ("<XF86AudioMute>",         spawn "amixer -D pulse sset Master toggle")
+    , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
+    , ("<XF86MonBrightnessUp>",   spawn "xbacklight -inc 10")
     ]
 
-unusedKeys :: [(KeyMask, KeySym)]
-unusedKeys = [(myModMask, xK_p)]
+unusedKeys :: [String]
+unusedKeys = ["M-p", "M-n"]
