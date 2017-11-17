@@ -44,7 +44,6 @@ myManageHook = composeAll [ manageDocks
                           , isFullscreen                  --> doFullFloat
                           ]
 
-
 myLogHook :: Handle -> X ()
 myLogHook proc =
     dynamicLogWithPP xmobarPP
