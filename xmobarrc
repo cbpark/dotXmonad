@@ -9,7 +9,7 @@ Config { font = "xft:D2Coding:size=10:style=Bold:antialias=true"
                     , Run Swap [] 10
                     , Run Com "uname" ["-s","-r"] "" 36000
                     , Run Date "%a %_d %b %l:%M %p" "date" 10
-                    , Run Com "/bin/bash" ["-c", "~/.xmonad/get-volume.sh"] "volume" 10
+                    , Run Com "/bin/bash" ["-c", "~/.xmonad/bin/get-volume.sh"] "volume" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"

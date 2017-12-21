@@ -68,7 +68,7 @@ myKeybindings =
        spawn "xscreensaver-command -lock; sleep 1; xset dpms force off")
     , ("M-S-e",                   spawn "ec")
     , ("M-S-f",                   spawn "firefox")
-    , ("M-S-t",                   spawn "toggle_composite.sh")
+    , ("M-S-t",                   spawn "~/.xmonad/bin/toggle_composite.sh")
     , ("C-<Return>",              spawn "dmenu_run")
     , ("C-<Print>",               spawn "scrot")
     , ("<XF86AudioLowerVolume>",  spawn "amixer -D pulse sset Master 5%-")
