@@ -1,5 +1,5 @@
 Config { font = "xft:D2Coding:size=10:style=Bold:antialias=true"
-       , borderColor = "#1f1f1f"
+       , borderColor = "#1d1f21"
        , border = TopB
        , bgColor = "#1d1f21"
        , fgColor = "#c5c8c6"
