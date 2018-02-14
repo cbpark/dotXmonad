@@ -28,9 +28,9 @@ main = do
         , terminal = "urxvt"
         , modMask = myModMask
         , focusFollowsMouse = False
-        , borderWidth = 4
-        , normalBorderColor  = "#1d1f21"  -- "1f1f1f"
-        , focusedBorderColor = "#c5c8c6"  -- "6ca0a3"
+        , borderWidth = 5
+        , normalBorderColor  = "#c5c8c6"  -- "1f1f1f"
+        , focusedBorderColor = "#cc6666"  -- "6ca0a3"
         } `additionalKeysP` myKeybindings `removeKeysP` unusedKeys
   where
     myLayout = let tall = Tall 1 (3/100) (1/2)
