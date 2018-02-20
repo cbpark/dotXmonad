@@ -1,6 +1,7 @@
 module Main where
 
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Config.Desktop        (desktopConfig)
 import XMonad.Hooks.DynamicLog
@@ -77,6 +78,16 @@ myKeybindings =
     , ("<XF86AudioMute>",         spawn "amixer -D pulse sset Master toggle")
     , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
     , ("<XF86MonBrightnessUp>",   spawn "xbacklight -inc 10")
+    , ("M-<Down>",                nextWS)
+    , ("M-<Up>",                  prevWS)
+    , ("M-S-<Down>",              shiftToNext >> nextWS)
+    , ("M-S-<Up>",                shiftToPrev >> prevWS)
+    , ("M-<Left>",                prevScreen)
+    , ("M-<Right>",               nextScreen)
+    , ("M-S-<Left>",              shiftNextScreen)
+    , ("M-S-<Right>",             shiftPrevScreen)
+    , ("M-z",                     toggleWS)
+    , ("M-f",                     moveTo Next NonEmptyWS)
     ]
 
 unusedKeys :: [String]
