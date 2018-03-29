@@ -40,7 +40,7 @@ main = do
 myManageHook :: ManageHook
 myManageHook = composeAll [ manageDocks
                           , className    =? "skype"       --> doFloat
-                          , className    =? "vlc"         --> doFloat
+                          -- , className    =? "vlc"         --> doFloat
                           , resource     =? "stalonetray" --> doIgnore
                           , isFullscreen                  --> doFullFloat
                           ]
