@@ -71,7 +71,6 @@ myKeybindings =
     , ("M-S-f",                   spawn "firefox")
     , ("M-S-t",                   spawn "~/.xmonad/bin/toggle_composite.sh")
     , ("C-<Return>",              spawn "rofi -show run")
-    , ("M-<Tab>",                 spawn "rofi -show window")
     , ("C-<Print>",               spawn "scrot")
     , ("<XF86AudioLowerVolume>",  spawn "amixer -D pulse sset Master 5%-")
     , ("<XF86AudioRaiseVolume>",  spawn "amixer -D pulse sset Master 5%+")
