@@ -30,8 +30,8 @@ main = do
         , modMask = myModMask
         , focusFollowsMouse = False
         , borderWidth = 5
-        , normalBorderColor  = "#c5c8c6"  -- "1f1f1f"
-        , focusedBorderColor = "#cc6666"  -- "6ca0a3"
+        , normalBorderColor  = "#ffffef"
+        , focusedBorderColor = "#cc9393"
         } `additionalKeysP` myKeybindings `removeKeysP` unusedKeys
   where
     myLayout = let tall = Tall 1 (3/100) (1/2)
@@ -49,8 +49,8 @@ myLogHook :: Handle -> X ()
 myLogHook proc =
     dynamicLogWithPP xmobarPP
     { ppOutput  = hPutStrLn proc
-    , ppTitle   = xmobarColor "#6ca0a3" "" . shorten 50
-    , ppCurrent = xmobarColor "#d0bf8f" "" . wrap "[" "]"
+    , ppTitle   = xmobarColor "#8cd0d3" "" . shorten 50
+    , ppCurrent = xmobarColor "#f0dfaf" "" . wrap "[" "]"
     , ppLayout  = \str -> let ls = words str
                           in unwords (if length ls > 2
                                       then (tail . tail) ls

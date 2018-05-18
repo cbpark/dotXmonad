@@ -1,8 +1,8 @@
 Config { font = "xft:D2Coding:size=10:style=Bold:antialias=true"
-       , borderColor = "#1d1f21"
+       , borderColor = "#1f1f1f"
        , border = TopB
-       , bgColor = "#1d1f21"
-       , fgColor = "#c5c8c6"
+       , bgColor = "#1f1f1f"
+       , fgColor = "#dcdccc"
        , position = TopW L 100
        , commands = [ Run Cpu ["-L","3","-H","50","--normal","#7f9f7f","--high","#dc8cc3"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
