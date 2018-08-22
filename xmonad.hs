@@ -5,11 +5,10 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Config.Desktop        (desktopConfig)
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops    (ewmh)
+import XMonad.Hooks.EwmhDesktops    (ewmh, fullscreenEventHook)
 import XMonad.Hooks.FadeInactive    (fadeIf, fadeOutLogHook, isUnfocused)
 import XMonad.Hooks.ManageDocks     (avoidStruts, docksEventHook, manageDocks)
 import XMonad.Hooks.ManageHelpers   (doFullFloat, isFullscreen)
-import XMonad.Layout.Fullscreen     (fullscreenSupport)
 import XMonad.Layout.NoBorders      (smartBorders)
 import XMonad.Layout.Spacing        (smartSpacing)
 import XMonad.Layout.Spiral         (spiral)
@@ -21,13 +20,13 @@ import System.IO                    (Handle, hPutStrLn)
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
-    xmonad $ fullscreenSupport $ ewmh desktopConfig
+    xmonad $ ewmh desktopConfig
         { manageHook = myManageHook
-        , handleEventHook = docksEventHook
+        , handleEventHook = docksEventHook <+> fullscreenEventHook
         , layoutHook = avoidStruts $ (smartBorders . smartSpacing 10) myLayout
         , logHook = myLogHook xmproc
         , terminal = "urxvt"
-        , modMask = myModMask
+        , modMask = mod4Mask
         , focusFollowsMouse = False
         , borderWidth = 5
         , normalBorderColor  = "#ffffef"
@@ -40,7 +39,7 @@ main = do
 myManageHook :: ManageHook
 myManageHook = composeAll [ manageDocks
                           , className    =? "skype"       --> doFloat
-                          -- , className    =? "vlc"         --> doFloat
+                          , className    =? "vlc"         --> doFloat
                           , resource     =? "stalonetray" --> doIgnore
                           , isFullscreen                  --> doFullFloat
                           ]
@@ -59,9 +58,6 @@ myLogHook proc =
     >> updatePointer (0.5, 0.5) (1, 1)
     -- make inactive windows translucent
     >> (fadeOutLogHook . fadeIf isUnfocused) 0.9
-
-myModMask :: KeyMask
-myModMask = mod4Mask
 
 myKeybindings :: [(String, X())]
 myKeybindings =
