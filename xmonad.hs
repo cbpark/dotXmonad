@@ -2,6 +2,7 @@ module Main where
 
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.NoBorders     (toggleBorder)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Config.Desktop        (desktopConfig)
 import XMonad.Hooks.DynamicLog
@@ -10,7 +11,7 @@ import XMonad.Hooks.FadeInactive    (fadeIf, fadeOutLogHook, isUnfocused)
 import XMonad.Hooks.ManageDocks     (avoidStruts, docksEventHook, manageDocks)
 import XMonad.Hooks.ManageHelpers   (doFullFloat, isFullscreen)
 import XMonad.Layout.Hidden
-import XMonad.Layout.NoBorders      (smartBorders)
+import XMonad.Layout.NoBorders      (noBorders, smartBorders)
 import XMonad.Layout.Spacing        (Border (..), spacingRaw)
 import XMonad.Layout.Spiral         (spiral)
 import XMonad.Util.EZConfig         (additionalKeysP, removeKeysP)
@@ -36,11 +37,12 @@ main = do
   where
     spaces = spacingRaw True (Border 0 0 0 0) True (Border 10 10 10 10) True
     myLayout = let tall = Tall 1 (3/100) (1/2)
-               in hiddenWindows (tall ||| Mirror tall ||| spiral (6/7) ||| Full)
+               in hiddenWindows (tall ||| Mirror tall ||| spiral (6/7) ||| noBorders Full)
 
 myManageHook :: ManageHook
 myManageHook = composeAll [ manageDocks
                           , className    =? "skype"       --> doFloat
+                          , className    =? "gnome-mpv"   --> doFloat
                           , resource     =? "stalonetray" --> doIgnore
                           , isFullscreen                  --> doFullFloat
                           ]
@@ -74,6 +76,7 @@ myKeybindings =
     , ("<XF86AudioMute>",         spawn "amixer -D pulse sset Master toggle")
     , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
     , ("<XF86MonBrightnessUp>",   spawn "xbacklight -inc 10")
+    , ("M-g",                     withFocused toggleBorder)
     , ("M-<Down>",                nextWS)
     , ("M-<Up>",                  prevWS)
     , ("M-S-<Down>",              shiftToNext >> nextWS)
