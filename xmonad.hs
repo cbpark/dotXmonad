@@ -9,6 +9,7 @@ import XMonad.Hooks.EwmhDesktops    (ewmh, fullscreenEventHook)
 import XMonad.Hooks.FadeInactive    (fadeIf, fadeOutLogHook, isUnfocused)
 import XMonad.Hooks.ManageDocks     (avoidStruts, docksEventHook, manageDocks)
 import XMonad.Hooks.ManageHelpers   (doFullFloat, isFullscreen)
+import XMonad.Layout.Hidden
 import XMonad.Layout.NoBorders      (smartBorders)
 import XMonad.Layout.Spacing        (Border (..), spacingRaw)
 import XMonad.Layout.Spiral         (spiral)
@@ -35,7 +36,7 @@ main = do
   where
     spaces = spacingRaw True (Border 0 0 0 0) True (Border 10 10 10 10) True
     myLayout = let tall = Tall 1 (3/100) (1/2)
-               in tall ||| Mirror tall ||| spiral (6/7) ||| Full
+               in hiddenWindows (tall ||| Mirror tall ||| spiral (6/7) ||| Full)
 
 myManageHook :: ManageHook
 myManageHook = composeAll [ manageDocks
@@ -83,6 +84,8 @@ myKeybindings =
     , ("M-S-<Right>",             shiftPrevScreen)
     , ("M-z",                     toggleWS)
     , ("M-f",                     moveTo Next NonEmptyWS)
+    , ("M-]",                     withFocused hideWindow)
+    , ("M-[",                     popOldestHiddenWindow)
     ]
 
 unusedKeys :: [String]
