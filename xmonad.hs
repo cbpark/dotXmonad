@@ -67,7 +67,7 @@ myKeybindings =
     [ ("M-S-z",
        spawn "xscreensaver-command -lock; sleep 1; xset dpms force off")
     , ("M-S-e",                   spawn "ec")
-    , ("M-S-f",                   spawn "chromium || firefox")
+    , ("M-S-f",                   spawn "firefox || chromium")
     , ("M-S-t",                   spawn "~/.xmonad/bin/toggle_composite.sh")
     , ("C-<Return>",              spawn "rofi -show run")
     , ("C-<Print>",               spawn "scrot")
