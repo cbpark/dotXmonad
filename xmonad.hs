@@ -5,10 +5,12 @@ import XMonad.Actions.CycleWS
 import XMonad.Actions.NoBorders     (toggleBorder)
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Config.Desktop        (desktopConfig)
+import XMonad.Config.Prime          (sendMessage)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops    (ewmh, fullscreenEventHook)
 import XMonad.Hooks.FadeInactive    (fadeIf, fadeOutLogHook, isUnfocused)
-import XMonad.Hooks.ManageDocks     (avoidStruts, docksEventHook, manageDocks)
+import XMonad.Hooks.ManageDocks     (ToggleStruts (..), avoidStruts,
+                                     docksEventHook, manageDocks)
 import XMonad.Hooks.ManageHelpers   (doFullFloat, isFullscreen)
 import XMonad.Layout.Hidden
 import XMonad.Layout.NoBorders      (noBorders, smartBorders)
@@ -89,6 +91,7 @@ myKeybindings =
     , ("M-f",                     moveTo Next NonEmptyWS)
     , ("M-]",                     withFocused hideWindow)
     , ("M-[",                     popOldestHiddenWindow)
+    , ("M-S-<Space>",             sendMessage ToggleStruts)
     ]
 
 unusedKeys :: [String]
