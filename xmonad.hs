@@ -3,6 +3,7 @@ module Main where
 import XMonad
 import XMonad.Actions.CycleWS
 import XMonad.Actions.NoBorders     (toggleBorder)
+import XMonad.Actions.NoBorders
 import XMonad.Actions.UpdatePointer (updatePointer)
 import XMonad.Config.Desktop        (desktopConfig)
 import XMonad.Config.Prime          (sendMessage)
@@ -78,7 +79,6 @@ myKeybindings =
     , ("<XF86AudioMute>",         spawn "amixer -D pulse sset Master toggle")
     , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 10")
     , ("<XF86MonBrightnessUp>",   spawn "xbacklight -inc 10")
-    , ("M-g",                     withFocused toggleBorder)
     , ("M-<Down>",                nextWS)
     , ("M-<Up>",                  prevWS)
     , ("M-S-<Down>",              shiftToNext >> nextWS)
@@ -92,6 +92,7 @@ myKeybindings =
     , ("M-]",                     withFocused hideWindow)
     , ("M-[",                     popOldestHiddenWindow)
     , ("M-S-<Space>",             sendMessage ToggleStruts)
+    , ("M-S-n",                   withFocused toggleBorder)
     ]
 
 unusedKeys :: [String]
