@@ -38,8 +38,8 @@ fi
 
 if command -v compton >/dev/null 2>&1; then
     echo "-- compton found."
-    backup_old ".config/compton.conf"
+    backup_old ".config/picom.conf"
     # mkdir -p $HOME/.config
-    ln -sf $DOTXMONAD/compton.conf $HOME/.config/compton.conf
+    ln -sf $DOTXMONAD/picom.conf $HOME/.config/picom.conf
     kill $(pgrep compton) && compton -b
 fi

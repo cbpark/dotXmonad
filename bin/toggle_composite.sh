@@ -5,7 +5,7 @@ if pgrep compton &> /dev/null; then
     pkill compton
 else
     echo "Turning compton ON"
-    compton -CGb --config $HOME/.config/compton.conf
+    compton -CGb --no-fading-openclose --config $HOME/.config/picom.conf
 fi
 
 exit 0
