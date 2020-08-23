@@ -34,7 +34,7 @@ main = do
         , modMask = mod4Mask
         , focusFollowsMouse = False
         , borderWidth = 5
-        , normalBorderColor  = "#ffffef"
+        , normalBorderColor  = "#1f1f1f" -- "#ffffef"
         , focusedBorderColor = "#cc9393"
         } `additionalKeysP` myKeybindings `removeKeysP` unusedKeys
   where
@@ -57,9 +57,8 @@ myLogHook proc =
     , ppTitle   = xmobarColor "#8cd0d3" "" . shorten 50
     , ppCurrent = xmobarColor "#f0dfaf" "" . wrap "[" "]"
     , ppLayout  = \str -> let ls = words str
-                          in unwords (if length ls > 2
-                                      then (tail . tail) ls
-                                      else ls) }
+                          in unwords (if length ls > 2 then ls !! 2 else ls)
+    }
     -- move the pointer to the focused window
     >> updatePointer (0.5, 0.5) (1, 1)
     -- make inactive windows translucent
