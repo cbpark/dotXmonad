@@ -57,7 +57,7 @@ myLogHook proc =
     , ppTitle   = xmobarColor "#8cd0d3" "" . shorten 50
     , ppCurrent = xmobarColor "#f0dfaf" "" . wrap "[" "]"
     , ppLayout  = \str -> let ls = words str
-                          in unwords (if length ls > 2 then ls !! 2 else ls)
+                          in unwords (if length ls > 2 then drop 2 ls else ls)
     }
     -- move the pointer to the focused window
     >> updatePointer (0.5, 0.5) (1, 1)
