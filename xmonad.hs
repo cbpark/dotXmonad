@@ -34,8 +34,8 @@ main = do
         , modMask = mod4Mask
         , focusFollowsMouse = False
         , borderWidth = 5
-        , normalBorderColor  = "#1f1f1f" -- "#ffffef"
-        , focusedBorderColor = "#cc9393"
+        , normalBorderColor  = "#232629" -- "#ffffef"
+        , focusedBorderColor = "#3daee9" -- "#cc9393"
         } `additionalKeysP` myKeybindings `removeKeysP` unusedKeys
   where
     spaces = spacingRaw True (Border 0 0 0 0) True (Border 10 10 10 10) True

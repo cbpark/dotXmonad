@@ -1,7 +1,7 @@
 Config { font = "xft:D2Coding:size=10:style=Bold:antialias=true"
        , borderColor = "#1f1f1f"  -- "#181818"
        , border = TopB
-       , bgColor = "#1f1f1f"  -- "#181818"
+       , bgColor = "#232629"  -- "#181818"
        , fgColor = "#dcdccc"  -- "#d8d8d8"
        , position = TopW L 100
        , commands = [ Run Cpu ["-L","3","-H","50","--normal","#7f9f7f","--high","#dc8cc3"] 10

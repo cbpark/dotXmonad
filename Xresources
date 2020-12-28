@@ -130,7 +130,8 @@ URxvt.url-select.underline:           true
 ! Scheme: elnawe
 
 ! #define base00 #3f3f3f
-#define base00 #1f1f1f
+! #define base00 #1f1f1f
+#define base00 #232629
 #define base01 #404040
 #define base02 #606060
 #define base03 #4f4f4f
